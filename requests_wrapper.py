@@ -1,5 +1,7 @@
 from typing import Optional
 
+import requests
+
 
 class Session:
     def __init__(
@@ -19,3 +21,13 @@ class Session:
         self._timeout: int = timeout
         self._raise_for_status: bool = raise_for_status
         self._max_retries: int = max_retries
+
+    def _build_request(
+        self,
+        method: str,
+        path: str,
+        **kwargs,
+    ) -> requests.Request:
+        url: str = self._url + path if self._url else path
+
+        return requests.Request(method=method, url=url, **kwargs)
