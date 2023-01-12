@@ -23,6 +23,9 @@ class Session:
         self._raise_for_status: bool = raise_for_status
         self._max_retries: int = max_retries
 
+    def get(self, path: str, **kwargs) -> requests.Response:
+        return self._request("GET", path, **kwargs)
+
     def post(self, path: str, **kwargs) -> requests.Response:
         return self._request("POST", path, **kwargs)
 
