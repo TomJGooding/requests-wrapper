@@ -23,6 +23,9 @@ class Session:
         self._raise_for_status: bool = raise_for_status
         self._max_retries: int = max_retries
 
+    def post(self, path: str, **kwargs) -> requests.Response:
+        return self._request("POST", path, **kwargs)
+
     def _request(self, method: str, path: str, **kwargs) -> requests.Response:
         req: requests.Request = self._build_request(method, path, **kwargs)
         prepped: requests.PreparedRequest = req.prepare()
